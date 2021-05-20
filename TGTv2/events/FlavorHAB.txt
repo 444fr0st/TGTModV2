@@ -2167,3 +2167,33 @@ country_event = {
 		}
 	}
 }
+country_event = {
+id = tgt_flavor_hab.25
+major = no
+title = tgt_flavor_hab.25.name
+desc = tgt_flavor_hab.25.desc
+picture = LAND_MILITARY_eventPicture
+
+fire_only_once = yes
+
+trigger = {
+tag = HAB
+is_year = 1520
+	HAB = {
+		who = BRA
+		attitude = attitude_allied
+		who = PRU 
+		attitude = attitude_allied
+	}
+}
+mean_time_to_happen = {
+		months = 5
+		}
+			option = {
+			name = "tgt_flavor_hab.25.option1"
+			add_mil_power = 25
+			add_manpower = 5
+			add_army_tradition = 20
+			}
+			BRA = { country_event = { id = tgt_flavor_hab.bra.1 } }
+}
