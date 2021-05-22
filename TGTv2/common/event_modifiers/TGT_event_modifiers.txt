@@ -1,0 +1,3 @@
+TGT_modifier1 = {
+	discipline = 0.05
+}
