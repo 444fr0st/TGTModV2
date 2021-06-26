@@ -5,6 +5,96 @@
 namespace = flavor_eng
 normal_or_historical_nations = yes
 
+# The End of the Hundred Years War
+country_event = {
+	id = flavor_eng.9104
+	title = "flavor_eng.EVTNAME9104"
+	desc = "flavor_eng.EVTDESC9104"
+	picture = DIPLOMACY_eventPicture
+	
+	fire_only_once = yes
+	
+	trigger = {
+		OR = {
+			AND = {
+				has_global_flag = hyw_mission_resolution
+				tag = ENG
+			}
+			AND = {
+				NOT = { is_year = 1500 }
+				NOT = { has_global_flag = eng_had_end_of_hundred_years_war }
+				OR = {
+					AND = {
+						tag = ENG
+						NOT = { exists = GBR }
+					}
+					tag = GBR
+				}
+				primary_culture = english
+				NOT = {
+					france_region = {
+						owned_by = ROOT
+					}
+				}
+				FRA = {
+					exists = yes
+					NOT = { is_subject_of = ENG }
+					NOT = { is_subject_of = GBR }
+					NOT = { war_with = ENG }
+					NOT = { war_with = GBR }
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {
+			set_global_flag = eng_had_end_of_hundred_years_war
+			if = {
+				limit = {
+					FRA = { NOT = { has_country_flag = had_end_of_HYW_france } }
+				}
+				FRA = { country_event = { id = flavor_fra.9104 days = 1 } }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 12
+	}
+	
+	option = {			# We have lost our foothold in France
+		name = "flavor_eng.EVTOPTA9104"
+		ai_chance = { factor = 80 }
+		add_stability_or_adm_power = yes
+		every_core_province = {
+			limit = {
+				region = france_region
+				NOT = { owned_by = ROOT }
+			}
+			remove_core = ROOT
+		}
+		FRA = {
+			add_opinion = {
+				who = ROOT
+				modifier = eng_no_english_in_france
+			}
+		}
+	}
+	option = {		# We will never give this up!
+		name = "flavor_eng.EVTOPTB9104"
+		ai_chance = { factor = 20 }
+		add_stability = -1
+		FRA = {
+			add_opinion = {
+				who = ROOT
+				modifier = eng_refuse_to_give_up_france
+			}
+		}
+	}
+}
+
+
 country_event = {
 	id = flavor_fra_maine
 	title = "tgt_flavor_fra1"
